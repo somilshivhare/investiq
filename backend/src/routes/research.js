@@ -3,6 +3,7 @@ import { runResearchGraph } from '../agent/graph.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import Research from '../models/Research.js';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { HumanMessage, AIMessage, SystemMessage } from '@langchain/core/messages';
 import { resolveCompany } from '../services/companyResolver.js';
 
 const router = express.Router();
@@ -280,12 +281,17 @@ ${(report.sources || []).map(s => `- ${s.title}: ${s.url}`).join('\n')}
 ---`;
 
     const formattedMessages = [
-      { role: 'system', content: systemPrompt },
-      ...(history || []).map(msg => ({
-        role: msg.role === 'assistant' ? 'model' : msg.role,
-        content: msg.content
-      })),
-      { role: 'user', content: message }
+      new SystemMessage(systemPrompt),
+      ...(history || []).map(msg => {
+        if (msg.role === 'assistant' || msg.role === 'model') {
+          return new AIMessage(msg.content);
+        } else if (msg.role === 'system') {
+          return new SystemMessage(msg.content);
+        } else {
+          return new HumanMessage(msg.content);
+        }
+      }),
+      new HumanMessage(message)
     ];
 
     const response = await llm.invoke(formattedMessages);

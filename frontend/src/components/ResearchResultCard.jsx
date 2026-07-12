@@ -161,13 +161,22 @@ const ResearchResultCard = ({ result }) => {
             </span>
             <button
               onClick={() => setShowChat(!showChat)}
-              className={`text-[10px] px-2.5 py-1 rounded border font-mono font-bold tracking-widest transition-colors cursor-pointer ${
+              className={`flex items-center gap-2 text-xs px-3.5 py-1.5 rounded-lg border font-mono font-bold tracking-wider transition-all duration-300 cursor-pointer shadow-lg shadow-teal-500/5 ${
                 showChat
-                  ? 'bg-teal-400 text-zinc-950 border-teal-400'
-                  : 'bg-zinc-800 text-zinc-400 border-zinc-700 hover:border-teal-400 hover:text-teal-400'
+                  ? 'bg-teal-400 text-zinc-950 border-teal-400 hover:bg-teal-300'
+                  : 'bg-teal-950/20 text-teal-400 border-teal-500/30 hover:bg-teal-400 hover:text-zinc-950 hover:border-teal-400'
               }`}
             >
-              {showChat ? 'CLOSE CHAT' : 'CHAT WITH RESEARCH'}
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <span>{showChat ? 'CLOSE CHAT' : 'CHAT WITH AGENT'}</span>
+              {!showChat && (
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-400"></span>
+                </span>
+              )}
             </button>
           </div>
         </div>
