@@ -92,7 +92,7 @@ stateDiagram-v2
 2. **`embedNode`**:
    - Concatenates the title and description snippet of each search result.
    - Splits text into blocks using a word-boundary-safe chunking algorithm.
-   - Generates vector embeddings via the `text-embedding-004` model and loads them into a new session-isolated `MemoryVectorStore`.
+   - Generates vector embeddings via the `gemini-embedding-001` model and loads them into a new session-isolated `MemoryVectorStore`.
 3. **`retrieveNode`**:
    - Performs three similarity searches against the memory vector database:
      - `"financial health and performance"`
@@ -100,10 +100,10 @@ stateDiagram-v2
      - `"risks and controversies"`
    - Deduplicates matching chunks by exact content to build context for reasoning.
 4. **`analyzeNode`**:
-   - Passes context chunks to `gemini-1.5-flash` with `analysisSchema` structured output.
+   - Passes context chunks to `gemini-flash-latest` with `analysisSchema` structured output.
    - Generates a bull case (3-4 points), a bear case (3-4 points), and 0-100 scores across: Business Quality, Financial Health, Valuation, Growth Potential, and Risk.
 5. **`decideNode`**:
-   - Passes the synthesized analysis to `gemini-1.5-flash` using `decisionSchema` structured output.
+   - Passes the synthesized analysis to `gemini-flash-latest` using `decisionSchema` structured output.
    - Determines the final verdict (`Strong Buy`, `Buy`, `Hold`, `Pass`, `Avoid`), an overall investment score, confidence level, investment horizon, valuation status, suitable investor profile, and negative monitoring triggers (if Pass or Avoid).
 
 ---

@@ -208,10 +208,10 @@ Here is a step-by-step execution lifecycle for a typical query, e.g., `"NVIDIA"`
 
 1. **Resolution**: The search text `"NVIDIA"` matches our cache or resolved listing `NVDA (NASDAQ)` from Twelve Data.
 2. **Search Stage**: Tavily searches three different topics and returns ~12 articles.
-3. **Embed Stage**: Chunks of ~500 characters are converted into vectors using `text-embedding-004` and loaded into the `MemoryVectorStore`.
+3. **Embed Stage**: Chunks of ~500 characters are converted into vectors using `gemini-embedding-001` and loaded into the `MemoryVectorStore`.
 4. **Retrieve Stage**: Cosine similarity is run against vectors for `financial health`, `market position`, and `risks`.
-5. **Synthesis Stage**: Gemini 1.5 Flash parses the chunks, outputs bull points, bear points, and evaluates the company scores (e.g. Growth: `95/100`, Valuation: `30/100`).
-6. **Decision Stage**: Gemini 1.5 Flash evaluates overall attractiveness, outputting `Buy` recommendation with confidence `85%`, and saves the file.
+5. **Synthesis Stage**: Gemini Flash parses the chunks, outputs bull points, bear points, and evaluates the company scores (e.g. Growth: `95/100`, Valuation: `30/100`).
+6. **Decision Stage**: Gemini Flash evaluates overall attractiveness, outputting `Buy` recommendation with confidence `85%`, and saves the file.
 7. **Client Render**: UI displays the dashboard widgets.
 
 ---
