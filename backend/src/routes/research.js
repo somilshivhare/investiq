@@ -41,7 +41,7 @@ router.get('/stream', async (req, res) => {
   });
 
   const heartbeat = setInterval(() => {
-    res.write(': heartbeat\n\n');
+    res.write(': heartbeat\n\n'); 
   }, 15000);
 
   try {
@@ -244,12 +244,14 @@ router.post('/:id/chat', async (req, res) => {
       throw new Error('GEMINI_API_KEY is not defined in environment variables.');
     }
 
-    console.log(`[chat] Invoking Gemini 3.5 Flash to answer question about ${report.companyName}...`);
+    const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    console.log(`[chat] Invoking ${modelName} to answer question about ${report.companyName}...`);
 
     const llm = new ChatGoogleGenerativeAI({
       apiKey: process.env.GEMINI_API_KEY,
-      model: 'gemini-3.5-flash',
-      temperature: 0.3
+      model: modelName,
+      temperature: 0.3,
+      maxRetries: 3
     });
 
     const hasFiveScores = typeof report.scores?.businessQuality !== 'undefined';

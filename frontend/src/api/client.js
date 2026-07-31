@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext.jsx';
  * Automatically fetches the memory-held token from useAuth()
  */
 export const useClient = () => {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
   const request = async (endpoint, options = {}) => {
@@ -23,6 +23,10 @@ export const useClient = () => {
       ...options,
       headers
     });
+
+    if (response.status === 401) {
+      logout();
+    }
 
     const data = await response.json();
 

@@ -219,7 +219,8 @@ const analyzeNode = async (state) => {
     throw new Error('No context chunks available for analysis.');
   }
 
-  console.log('[analyzeNode] Synthesizing investment analysis using Gemini 3.5 Flash...');
+  const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  console.log(`[analyzeNode] Synthesizing investment analysis using ${modelName}...`);
 
   const contextText = retrievedChunks
     .map((doc, idx) => `[Chunk ${idx + 1}] (Source: ${doc.metadata?.title || 'Unknown'} - ${doc.metadata?.url || 'N/A'}):\n${doc.pageContent}`)
@@ -227,8 +228,9 @@ const analyzeNode = async (state) => {
 
   const llm = new ChatGoogleGenerativeAI({
     apiKey: process.env.GEMINI_API_KEY,
-    model: 'gemini-3.5-flash',
-    temperature: 0.1
+    model: modelName,
+    temperature: 0.1,
+    maxRetries: 3
   });
 
   const structuredLlm = llm.withStructuredOutput(analysisSchema);
@@ -259,12 +261,14 @@ const analyzeNode = async (state) => {
 const decideNode = async (state) => {
   const { companyName, analysisResult } = state;
 
-  console.log('[decideNode] Formulating final investment recommendation using Gemini 3.5 Flash...');
+  const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  console.log(`[decideNode] Formulating final investment recommendation using ${modelName}...`);
 
   const llm = new ChatGoogleGenerativeAI({
     apiKey: process.env.GEMINI_API_KEY,
-    model: 'gemini-3.5-flash',
-    temperature: 0.2
+    model: modelName,
+    temperature: 0.2,
+    maxRetries: 3
   });
 
   const structuredLlm = llm.withStructuredOutput(decisionSchema);

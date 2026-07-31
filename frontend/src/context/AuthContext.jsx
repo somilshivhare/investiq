@@ -3,8 +3,23 @@ import React, { createContext, useState, useContext } from 'react';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
-  const [email, setEmail] = useState(null);
+  const [token, setToken] = useState(() => localStorage.getItem('investiq_token') || null);
+  const [email, setEmail] = useState(() => localStorage.getItem('investiq_email') || null);
+
+  const saveAuth = (jwtToken, userEmail) => {
+    setToken(jwtToken);
+    setEmail(userEmail);
+    if (jwtToken) {
+      localStorage.setItem('investiq_token', jwtToken);
+    } else {
+      localStorage.removeItem('investiq_token');
+    }
+    if (userEmail) {
+      localStorage.setItem('investiq_email', userEmail);
+    } else {
+      localStorage.removeItem('investiq_email');
+    }
+  };
 
   const login = async (inputEmail, password) => {
     try {
@@ -20,8 +35,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.error || 'Login failed');
       }
 
-      setToken(data.token);
-      setEmail(data.email);
+      saveAuth(data.token, data.email);
       return { success: true };
     } catch (error) {
       return { success: false, error: error.message };
@@ -42,8 +56,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.error || 'Signup failed');
       }
 
-      setToken(data.token);
-      setEmail(data.email);
+      saveAuth(data.token, data.email);
       return { success: true };
     } catch (error) {
       return { success: false, error: error.message };
@@ -52,13 +65,11 @@ export const AuthProvider = ({ children }) => {
 
   // Used by OAuthCallback page — sets auth state directly from URL params
   const loginWithToken = (jwtToken, userEmail) => {
-    setToken(jwtToken);
-    setEmail(userEmail);
+    saveAuth(jwtToken, userEmail);
   };
 
   const logout = () => {
-    setToken(null);
-    setEmail(null);
+    saveAuth(null, null);
   };
 
   return (

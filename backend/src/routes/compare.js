@@ -58,12 +58,14 @@ router.get('/compare', async (req, res) => {
       throw new Error('GEMINI_API_KEY is not defined in environment variables.');
     }
 
-    console.log(`[compare] Invoking Gemini 3.5 Flash to compare ${reportA.companyName} and ${reportB.companyName}...`);
+    const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    console.log(`[compare] Invoking ${modelName} to compare ${reportA.companyName} and ${reportB.companyName}...`);
 
     const llm = new ChatGoogleGenerativeAI({
       apiKey: process.env.GEMINI_API_KEY,
-      model: 'gemini-3.5-flash',
-      temperature: 0.2
+      model: modelName,
+      temperature: 0.2,
+      maxRetries: 3
     });
 
     const structuredLlm = llm.withStructuredOutput(comparisonSchema);
