@@ -11,7 +11,7 @@ import {
   formatDecidePrompt 
 } from './prompts.js';
 
-export const EMBEDDING_MODEL = 'gemini-embedding-2';
+export const EMBEDDING_MODEL = 'text-embedding-004';
 
 // ==========================================
 // 1. LANGGRAPH STATE DEFINITION
@@ -219,7 +219,7 @@ const analyzeNode = async (state) => {
     throw new Error('No context chunks available for analysis.');
   }
 
-  const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
   console.log(`[analyzeNode] Synthesizing investment analysis using ${modelName}...`);
 
   const contextText = retrievedChunks
@@ -261,7 +261,7 @@ const analyzeNode = async (state) => {
 const decideNode = async (state) => {
   const { companyName, analysisResult } = state;
 
-  const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
   console.log(`[decideNode] Formulating final investment recommendation using ${modelName}...`);
 
   const llm = new ChatGoogleGenerativeAI({
