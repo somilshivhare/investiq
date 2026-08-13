@@ -95,7 +95,7 @@ export const ResearchChat = ({ reportId, companyName }) => {
                 {msg.role === 'user' ? 'YOU' : 'ANALYST AGENT'}
               </div>
               <div
-                className={`max-w-[88%] rounded-xl px-3 py-2.5 text-sm leading-relaxed ${
+                className={`max-w-[92%] sm:max-w-[80%] rounded-xl px-3 py-2.5 text-sm leading-relaxed ${
                   msg.role === 'user'
                     ? 'bg-teal-950/30 text-teal-300 border border-teal-900/30'
                     : 'bg-zinc-950 text-zinc-300 border border-zinc-800'
@@ -136,12 +136,12 @@ export const ResearchChat = ({ reportId, companyName }) => {
           onChange={(e) => setInput(e.target.value)}
           placeholder={`Ask about ${companyName}'s metrics, risks, or strategy…`}
           disabled={loading}
-          className="flex-grow bg-zinc-950 border border-zinc-800 text-zinc-100 rounded-lg px-3 py-2 text-sm focus:border-teal-400 focus:outline-none disabled:opacity-50 transition-colors placeholder:text-zinc-700"
+          className="flex-1 bg-zinc-950 border border-zinc-800 text-zinc-100 rounded-lg px-3 py-2 text-sm focus:border-teal-400 focus:outline-none disabled:opacity-50 transition-colors placeholder:text-zinc-700 min-w-0"
         />
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="bg-teal-400 hover:bg-teal-300 disabled:bg-zinc-800 text-zinc-950 disabled:text-zinc-600 font-bold px-4 py-2 rounded-lg text-sm transition-colors cursor-pointer"
+          className="bg-teal-400 hover:bg-teal-300 disabled:bg-zinc-800 text-zinc-950 disabled:text-zinc-600 font-bold px-4 py-2 rounded-lg text-sm transition-colors cursor-pointer shrink-0"
         >
           Send
         </button>

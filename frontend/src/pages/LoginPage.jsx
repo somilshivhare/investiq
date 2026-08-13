@@ -47,14 +47,14 @@ const LoginPage = () => {
   const fade = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 } };
 
   return (
-    <div className="min-h-screen w-screen flex bg-zinc-950 overflow-hidden">
+    <div className="min-h-screen w-full max-w-full flex bg-zinc-950 overflow-x-hidden">
       {/* Left hero — hidden on mobile */}
-      <div className="w-[60%] shrink-0">
+      <div className="hidden lg:block lg:w-[60%] shrink-0">
         <AuthHeroPanel />
       </div>
 
       {/* Right panel */}
-      <div className="flex-1 flex items-center justify-center p-6 bg-zinc-950 border-l border-zinc-900">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 bg-zinc-950 border-l-0 lg:border-l border-zinc-900 min-h-screen">
         <motion.div
           className="w-full max-w-sm space-y-7"
           initial={{ opacity: 0, x: 20 }}

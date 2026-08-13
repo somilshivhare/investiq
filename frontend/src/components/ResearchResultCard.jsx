@@ -45,7 +45,7 @@ const CompanySnapshot = ({ meta = {}, companyName }) => {
   return (
     <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-4">
       <h3 className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 mb-3">Company Snapshot</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
         {fields.map(({ label, value }) => (
           <StatCell key={label} label={label} value={value} />
         ))}
@@ -69,7 +69,7 @@ const FinancialSnapshot = ({ financials = {} }) => {
   return (
     <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-4">
       <h3 className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500 mb-3">Financial Snapshot</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         {fields.map(({ label, value }) => (
           <StatCell key={label} label={label} value={value} />
         ))}
@@ -150,7 +150,7 @@ const ResearchResultCard = ({ result }) => {
   const recLower = rec.toLowerCase();
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 lg:p-8 space-y-6 animate-fade-in">
+    <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 sm:p-6 lg:p-8 space-y-6 animate-fade-in">
       {/* ── Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 border-b border-zinc-800 pb-5">
         <div>
@@ -248,7 +248,7 @@ const ResearchResultCard = ({ result }) => {
       {/* ── Score Bars ── */}
       <div className="space-y-3 border-t border-zinc-800 pt-5">
         <h3 className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 font-mono">Metric Analysis</h3>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           <ScoreBar label="Business Quality"  score={scores.businessQuality  || 0} />
           <ScoreBar label="Financial Health"  score={scores.financialHealth  || 0} />
           <ScoreBar label="Valuation"         score={scores.valuation        || 0} />

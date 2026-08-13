@@ -68,7 +68,7 @@ const HistoryChips = ({
                   : 'border-zinc-800 bg-zinc-900/40 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 hover:border-zinc-700'
               }`}
             >
-              <span className="font-semibold">{item.companyName}</span>
+              <span className="font-semibold truncate max-w-[130px] sm:max-w-none">{item.companyName}</span>
               {rec && (
                 <span className={`text-[9px] font-bold uppercase ${recColor}`}>
                   {rec === 'Strong Buy' ? 'S.BUY' : rec.toUpperCase()}

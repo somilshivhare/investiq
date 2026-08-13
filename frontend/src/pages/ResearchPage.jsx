@@ -154,9 +154,9 @@ const ResearchPage = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-teal-450/30 selection:text-teal-400">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-teal-450/30 selection:text-teal-400">
       {/* Header */}
-      <header className="border-b border-zinc-900 bg-zinc-950 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+      <header className="border-b border-zinc-900 bg-zinc-950 px-4 sm:px-6 py-3.5 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center h-7 w-7 rounded border border-zinc-800 bg-zinc-900 text-teal-400">
             <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -165,7 +165,7 @@ const ResearchPage = () => {
           </div>
           <h1 className="text-xs font-bold tracking-widest font-mono">INVESTIQ // TERMINAL</h1>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <span className="hidden sm:inline text-xs font-mono text-zinc-500">{email}</span>
           <button
             onClick={logout}
@@ -176,9 +176,9 @@ const ResearchPage = () => {
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-5 flex flex-col">
+      <main className="flex-1 w-full max-w-4xl mx-auto px-3 sm:px-6 py-6 sm:py-10 space-y-5 flex flex-col">
         {/* Search Panel */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 sm:p-5 space-y-4">
           {!compareMode && (
             <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-3">
               <input
@@ -193,7 +193,7 @@ const ResearchPage = () => {
               <button
                 type="submit"
                 disabled={searching || !companyName.trim()}
-                className="bg-teal-400 hover:bg-teal-300 text-zinc-950 font-bold px-6 py-2.5 rounded-lg text-sm transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer shrink-0"
+                className="w-full sm:w-auto bg-teal-400 hover:bg-teal-300 text-zinc-950 font-bold px-6 py-2.5 rounded-lg text-sm transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer shrink-0"
               >
                 {searching ? 'Analyzing…' : 'Research'}
               </button>
@@ -223,7 +223,7 @@ const ResearchPage = () => {
             <button
               onClick={handleToggleCompareMode}
               disabled={searching || comparing}
-              className={`text-[10px] font-bold font-mono px-4 py-2 rounded-lg border transition-all cursor-pointer ${
+              className={`w-full sm:w-auto text-[10px] font-bold font-mono px-4 py-2 rounded-lg border transition-all cursor-pointer ${
                 compareMode
                   ? 'border-teal-400 bg-teal-400/5 text-teal-400'
                   : 'border-zinc-800 bg-zinc-950 text-zinc-400 hover:text-zinc-100 hover:border-zinc-700'
@@ -235,7 +235,7 @@ const ResearchPage = () => {
               <button
                 onClick={handleCompare}
                 disabled={selectedIds.length !== 2 || comparing}
-                className="bg-teal-400 hover:bg-teal-300 text-zinc-950 font-bold px-6 py-2 rounded-lg text-[10px] tracking-wider font-mono transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
+                className="w-full sm:w-auto bg-teal-400 hover:bg-teal-300 text-zinc-950 font-bold px-6 py-2 rounded-lg text-[10px] tracking-wider font-mono transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
               >
                 {comparing ? 'COMPARING…' : `COMPARE SELECTED (${selectedIds.length}/2)`}
               </button>

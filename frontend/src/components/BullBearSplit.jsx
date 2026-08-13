@@ -2,7 +2,7 @@ import React from 'react';
 
 const BullBearSplit = ({ bullCase = [], bearCase = [] }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
       {/* Bull Case */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-5 space-y-3">
         <div className="flex items-center gap-2 border-b border-zinc-850 pb-2">

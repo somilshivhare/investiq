@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [historyLoading, setHistoryLoading] = useState(false);
+  const [showMobileHistory, setShowMobileHistory] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
@@ -78,6 +79,7 @@ const Dashboard = () => {
 
   // Load a specific report from history
   const handleSelectHistory = async (id) => {
+    setShowMobileHistory(false);
     setLoading(true);
     setError('');
     setActiveReport(null);
@@ -111,9 +113,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-dark-bg text-slate-300 flex flex-col">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-dark-bg text-slate-300 flex flex-col">
       {/* Navbar Header */}
-      <header className="border-b border-dark-border/60 bg-dark-card/30 backdrop-blur-md sticky top-0 z-30 px-6 py-4 flex items-center justify-between">
+      <header className="border-b border-dark-border/60 bg-dark-card/30 backdrop-blur-md sticky top-0 z-30 px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20">
             <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -126,7 +128,16 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <button
+            onClick={() => setShowMobileHistory((v) => !v)}
+            className="md:hidden px-3 py-1.5 rounded-lg text-xs font-semibold bg-dark-card hover:bg-slate-700 border border-dark-border text-slate-200 transition-all cursor-pointer flex items-center gap-1.5"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>History</span>
+          </button>
           <div className="hidden sm:flex flex-col items-end">
             <span className="text-sm font-semibold text-white">{user?.username}</span>
             <span className="text-xs text-slate-400">Standard Account</span>
@@ -142,6 +153,41 @@ const Dashboard = () => {
 
       {/* Main Container */}
       <div className="flex-1 flex overflow-hidden">
+        {/* Mobile History Drawer */}
+        {showMobileHistory && (
+          <div className="md:hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex justify-end">
+            <div className="w-80 h-full bg-zinc-950 border-l border-dark-border p-4 flex flex-col space-y-4">
+              <div className="flex items-center justify-between border-b border-dark-border/60 pb-3">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">Research History</h2>
+                <button onClick={() => setShowMobileHistory(false)} className="text-slate-400 hover:text-white text-sm font-mono p-1 cursor-pointer">✕</button>
+              </div>
+              <div className="flex-1 overflow-y-auto space-y-2">
+                {historyLoading ? (
+                  <div className="text-center py-8 text-xs text-slate-500">Loading history...</div>
+                ) : history.length === 0 ? (
+                  <div className="text-center py-8 text-xs text-slate-500">No reports generated yet.</div>
+                ) : (
+                  history.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => handleSelectHistory(item.id)}
+                      className="w-full text-left p-3 rounded-lg border border-dark-border/40 bg-dark-card/25 hover:bg-dark-card/65 transition-all flex items-center justify-between cursor-pointer"
+                    >
+                      <div>
+                        <div className="font-bold text-white text-xs">{item.ticker}</div>
+                        <div className="text-xxs text-slate-400 truncate max-w-[150px]">{item.companyName}</div>
+                      </div>
+                      <span className={`text-[10px] px-2 py-0.5 rounded border font-mono ${getRatingBadge(item.rating)}`}>
+                        {item.rating}
+                      </span>
+                    </button>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Sidebar - History */}
         <aside className="w-80 border-r border-dark-border/50 bg-dark-card/10 flex flex-col hidden md:flex">
           <div className="p-4 border-b border-dark-border/50">
@@ -174,7 +220,7 @@ const Dashboard = () => {
         </aside>
 
         {/* Workspace Area */}
-        <main className="flex-1 overflow-y-auto p-6 lg:p-8 flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto w-full">
           {/* Left Column: Form Controls */}
           <div className="w-full lg:w-96 flex flex-col gap-6">
             {/* Run Analysis Form */}

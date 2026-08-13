@@ -107,15 +107,15 @@ const CompareView = ({ compareData }) => {
           <h3 className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500">Side-by-Side Metrics</h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm font-mono">
+          <table className="w-full text-xs sm:text-sm font-mono">
             <thead>
               <tr className="border-b border-zinc-800">
-                <th className="text-left px-4 py-2.5 text-[10px] text-zinc-500 font-bold uppercase tracking-wider w-1/3">Metric</th>
-                <th className="text-center px-4 py-2.5 text-[10px] text-zinc-300 font-bold uppercase tracking-wider">
+                <th className="text-left px-2.5 sm:px-4 py-2.5 text-[10px] text-zinc-500 font-bold uppercase tracking-wider w-1/3">Metric</th>
+                <th className="text-center px-2.5 sm:px-4 py-2.5 text-[10px] text-zinc-300 font-bold uppercase tracking-wider">
                   {resultA?.companyName}
                   {resultA?.companyName === strongerPick && <span className="ml-1 text-teal-400">★</span>}
                 </th>
-                <th className="text-center px-4 py-2.5 text-[10px] text-zinc-300 font-bold uppercase tracking-wider">
+                <th className="text-center px-2.5 sm:px-4 py-2.5 text-[10px] text-zinc-300 font-bold uppercase tracking-wider">
                   {resultB?.companyName}
                   {resultB?.companyName === strongerPick && <span className="ml-1 text-teal-400">★</span>}
                 </th>
@@ -124,13 +124,13 @@ const CompareView = ({ compareData }) => {
             <tbody>
               {/* Recommendation */}
               <tr className="border-b border-zinc-800/50">
-                <td className="px-4 py-2.5 text-[10px] text-zinc-500 uppercase tracking-wider">Recommendation</td>
-                <td className="px-4 py-2.5 text-center">
+                <td className="px-2.5 sm:px-4 py-2.5 text-[10px] text-zinc-500 uppercase tracking-wider">Recommendation</td>
+                <td className="px-2.5 sm:px-4 py-2.5 text-center">
                   <span className={`text-[10px] px-2 py-0.5 rounded border font-bold ${getBadgeColors(resultA?.recommendation || resultA?.verdict || '')}`}>
                     {(resultA?.recommendation || resultA?.verdict || 'N/A').toUpperCase()}
                   </span>
                 </td>
-                <td className="px-4 py-2.5 text-center">
+                <td className="px-2.5 sm:px-4 py-2.5 text-center">
                   <span className={`text-[10px] px-2 py-0.5 rounded border font-bold ${getBadgeColors(resultB?.recommendation || resultB?.verdict || '')}`}>
                     {(resultB?.recommendation || resultB?.verdict || 'N/A').toUpperCase()}
                   </span>
@@ -139,30 +139,30 @@ const CompareView = ({ compareData }) => {
 
               {/* Investment Score */}
               <tr className="border-b border-zinc-800/50">
-                <td className="px-4 py-2.5 text-[10px] text-zinc-500 uppercase tracking-wider">Investment Score</td>
-                <td className={`px-4 py-2.5 text-center font-bold ${scoreColor(resultA?.investmentScore || 0)}`}>
+                <td className="px-2.5 sm:px-4 py-2.5 text-[10px] text-zinc-500 uppercase tracking-wider">Investment Score</td>
+                <td className={`px-2.5 sm:px-4 py-2.5 text-center font-bold ${scoreColor(resultA?.investmentScore || 0)}`}>
                   {resultA?.investmentScore ?? 'N/A'}/100
                 </td>
-                <td className={`px-4 py-2.5 text-center font-bold ${scoreColor(resultB?.investmentScore || 0)}`}>
+                <td className={`px-2.5 sm:px-4 py-2.5 text-center font-bold ${scoreColor(resultB?.investmentScore || 0)}`}>
                   {resultB?.investmentScore ?? 'N/A'}/100
                 </td>
               </tr>
 
               {/* Confidence */}
               <tr className="border-b border-zinc-800/50">
-                <td className="px-4 py-2.5 text-[10px] text-zinc-500 uppercase tracking-wider">Confidence</td>
-                <td className="px-4 py-2.5 text-center text-zinc-300 font-bold">{resultA?.confidence ?? 'N/A'}%</td>
-                <td className="px-4 py-2.5 text-center text-zinc-300 font-bold">{resultB?.confidence ?? 'N/A'}%</td>
+                <td className="px-2.5 sm:px-4 py-2.5 text-[10px] text-zinc-500 uppercase tracking-wider">Confidence</td>
+                <td className="px-2.5 sm:px-4 py-2.5 text-center text-zinc-300 font-bold">{resultA?.confidence ?? 'N/A'}%</td>
+                <td className="px-2.5 sm:px-4 py-2.5 text-center text-zinc-300 font-bold">{resultB?.confidence ?? 'N/A'}%</td>
               </tr>
 
               {/* Valuation Status */}
               <tr className="border-b border-zinc-800/50">
-                <td className="px-4 py-2.5 text-[10px] text-zinc-500 uppercase tracking-wider">Valuation</td>
-                <td className={`px-4 py-2.5 text-center font-bold text-[11px] ${
+                <td className="px-2.5 sm:px-4 py-2.5 text-[10px] text-zinc-500 uppercase tracking-wider">Valuation</td>
+                <td className={`px-2.5 sm:px-4 py-2.5 text-center font-bold text-[10px] sm:text-[11px] ${
                   resultA?.valuationStatus === 'Undervalued' ? 'text-emerald-400' :
                   resultA?.valuationStatus === 'Overvalued'  ? 'text-rose-400'    : 'text-amber-400'
                 }`}>{resultA?.valuationStatus ?? 'N/A'}</td>
-                <td className={`px-4 py-2.5 text-center font-bold text-[11px] ${
+                <td className={`px-2.5 sm:px-4 py-2.5 text-center font-bold text-[10px] sm:text-[11px] ${
                   resultB?.valuationStatus === 'Undervalued' ? 'text-emerald-400' :
                   resultB?.valuationStatus === 'Overvalued'  ? 'text-rose-400'    : 'text-amber-400'
                 }`}>{resultB?.valuationStatus ?? 'N/A'}</td>
@@ -174,11 +174,11 @@ const CompareView = ({ compareData }) => {
                 const sB = getScore(resultB, key);
                 return (
                   <tr key={key} className="border-b border-zinc-800/30 hover:bg-zinc-800/20 transition-colors">
-                    <td className="px-4 py-2 text-[10px] text-zinc-500 uppercase tracking-wider">{label}</td>
-                    <td className={`px-4 py-2 text-center font-bold ${sA != null ? scoreColor(sA, isRisk) : 'text-zinc-600'}`}>
+                    <td className="px-2.5 sm:px-4 py-2 text-[10px] text-zinc-500 uppercase tracking-wider">{label}</td>
+                    <td className={`px-2.5 sm:px-4 py-2 text-center font-bold ${sA != null ? scoreColor(sA, isRisk) : 'text-zinc-600'}`}>
                       {sA != null ? `${sA}/100` : '–'}
                     </td>
-                    <td className={`px-4 py-2 text-center font-bold ${sB != null ? scoreColor(sB, isRisk) : 'text-zinc-600'}`}>
+                    <td className={`px-2.5 sm:px-4 py-2 text-center font-bold ${sB != null ? scoreColor(sB, isRisk) : 'text-zinc-600'}`}>
                       {sB != null ? `${sB}/100` : '–'}
                     </td>
                   </tr>
