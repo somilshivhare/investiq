@@ -219,7 +219,7 @@ const analyzeNode = async (state) => {
     throw new Error('No context chunks available for analysis.');
   }
 
-  const modelName = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+  const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
   console.log(`[analyzeNode] Synthesizing investment analysis using ${modelName}...`);
 
   const contextText = retrievedChunks
@@ -261,7 +261,7 @@ const analyzeNode = async (state) => {
 const decideNode = async (state) => {
   const { companyName, analysisResult } = state;
 
-  const modelName = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+  const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
   console.log(`[decideNode] Formulating final investment recommendation using ${modelName}...`);
 
   const llm = new ChatGoogleGenerativeAI({
