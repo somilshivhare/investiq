@@ -244,7 +244,7 @@ router.post('/:id/chat', async (req, res) => {
       throw new Error('GEMINI_API_KEY is not defined in environment variables.');
     }
 
-    const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+    const modelName = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
     console.log(`[chat] Invoking ${modelName} to answer question about ${report.companyName}...`);
 
     const llm = new ChatGoogleGenerativeAI({
